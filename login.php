@@ -30,7 +30,7 @@
                     header("Location: admin_dash.php");
                     exit();
                 case 'Project Manager':
-                    header("Location: admin_dash.php");
+                    header("Location: pm_dash.php");
                     exit();
                 case 'Developer':
                     header("Location: dev_dash.php");
@@ -40,8 +40,8 @@
                     exit();
             }
         } else{
-            $_SESSION['flash_error'] = "Wrong username or password :(";
-            header("Location: login.php"); // flash_error method to prevent browser resubmission problem
+            $_SESSION['flash_error'] = "Wrong username or password :("; // flash_error method to prevent browser resubmission problem
+            header("Location: login.php"); 
             exit();
         }
     }
