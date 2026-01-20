@@ -38,7 +38,7 @@
 	<link rel="stylesheet" href="style.css">
 	<title>Register</title>
 </head>
-<body>
+<body class="layout-auth">
 	<div class="login-container">
         <h1>SIGN UP</h1>
         <form method=post>

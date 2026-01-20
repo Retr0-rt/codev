@@ -1,8 +1,13 @@
+/* =========================================
+   1. GLOBAL VARIABLES & RESET
+   ========================================= */
 :root {
-  --primary: #1A1A1A;
-  --secondary: #FFFFFF;
-  --accent: #000080;
+  --primary: #1A1A1A;    /* Black-ish */
+  --secondary: #FFFFFF;  /* White */
+  --accent: #000080;     /* Navy Blue */
+  --complementary: #D4BB47;
   --shadow: 8px 8px 0px var(--primary);
+  --border-radius: 12px;
 }
 
 * {
@@ -14,10 +19,19 @@
 
 body {
   background-color: var(--secondary);
+  color: var(--primary);
+  min-height: 100vh;
+  /* Removed flex centering here to allow Dashboard scrolling */
+}
+
+/* =========================================
+   2. UTILITIES & AUTH LAYOUT
+   ========================================= */
+/* IMPORTANT: Add class="layout-auth" to your Login/Signup <body> tag */
+.layout-auth {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   padding: 20px;
 }
 
@@ -28,29 +42,9 @@ body {
   margin-bottom: 10px;
 }
 
-.login-container {
-  width: 100%;
-  max-width: 400px;
-  border: 1px solid var(--primary);
-  padding: 40px 30px;
-  background-color: var(--secondary);
-  box-shadow: var(--shadow);
-  position: relative;
-  border-radius: 12px;
-}
-
-.login-container::before {
-  content: '';
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  right: -6px;
-  bottom: -6px;
-  border: 1px solid var(--primary);
-  z-index: -1;
-  border-radius: 12px;
-}
-
+/* =========================================
+   3. SHARED COMPONENTS (Inputs, Buttons)
+   ========================================= */
 h1 {
   color: var(--primary);
   margin-bottom: 30px;
@@ -85,7 +79,8 @@ input:focus {
   box-shadow: 4px 4px 0px var(--primary);
 }
 
-button {
+button, .btn {
+  display: inline-block;
   width: 100%;
   padding: 12px;
   background-color: var(--accent);
@@ -94,13 +89,38 @@ button {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 10px;
-  transition: all 0.3s;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.2s;
 }
 
-button:hover {
+button:hover, .btn:hover {
   box-shadow: 4px 4px 0px var(--primary);
   transform: translate(-2px, -2px);
+}
+
+/* =========================================
+   4. AUTH PAGE SPECIFICS (Login Box)
+   ========================================= */
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid var(--primary);
+  padding: 40px 30px;
+  background-color: var(--secondary);
+  box-shadow: var(--shadow);
+  position: relative;
+  border-radius: var(--border-radius);
+}
+
+/* The double border effect */
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 6px; left: 6px; right: -6px; bottom: -6px;
+  border: 1px solid var(--primary);
+  z-index: -1;
+  border-radius: var(--border-radius);
 }
 
 .divider {
@@ -118,16 +138,145 @@ button:hover {
   margin: 0 10px;
 }
 
-
-
 .footer {
   text-align: center;
   margin-top: 20px;
-  color: var(--primary);
+}
+.footer a { color: var(--primary); font-weight: bold; }
+
+/* =========================================
+   5. DASHBOARD LAYOUT
+   ========================================= */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
 }
 
-.footer a {
+/* Sidebar Styles */
+.sidebar {
+  width: 260px;
+  background-color: var(--secondary);
+  border-right: 3px solid var(--primary);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: fixed; /* Sticky sidebar */
+  height: 100vh;
+  z-index: 100;
+}
+
+.brand {
+  font-size: 1.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid var(--primary);
+}
+
+.nav-link {
+  display: block;
+  text-decoration: none;
   color: var(--primary);
   font-weight: bold;
-  text-decoration: underline;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 2px solid transparent;
+  transition: all 0.2s;
 }
+
+.nav-link:hover, .nav-link.active {
+  background-color: var(--accent);
+  color: var(--secondary);
+  border: 2px solid var(--primary);
+  box-shadow: 4px 4px 0px var(--primary);
+}
+
+.logout-link {
+  margin-top: auto;
+  border-top: 2px solid var(--primary);
+}
+
+/* Main Content Area */
+.main-content {
+  margin-left: 260px; /* Same as sidebar width */
+  padding: 40px;
+  width: 100%;
+}
+
+.header-title {
+  text-align: left; /* Override centered h1 */
+  text-transform: uppercase;
+  font-size: 2.5rem;
+}
+
+/* Dashboard Cards (Stats) */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.card {
+  background-color: var(--secondary);
+  border: 2px solid var(--primary);
+  padding: 25px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0px var(--primary);
+}
+
+.card h3 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.card .number {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--accent);
+}
+
+/* Dashboard Tables */
+.table-container {
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow);
+  background: var(--secondary);
+  padding: 20px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  border-bottom: 3px solid var(--primary);
+  padding: 15px;
+  text-transform: uppercase;
+}
+
+td {
+  padding: 15px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Action Badges/Buttons inside tables */
+.badge {
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 1px solid var(--primary);
+}
+.badge-admin { background-color: var(--accent); color: white; }
+.badge-pm { background-color: var(--complementary); }
+.badge-dev { background-color: #e0e0e0; color: #000; }

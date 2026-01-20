@@ -1,5 +1,6 @@
 
 <?php
+    require 'Includes/functions.php';
     session_start();
     $db = new SQLite3("codev.db");
     $error = "";
@@ -24,7 +25,7 @@
             $_SESSION['user_id'] = $user_info['user_id'];
             $_SESSION['username'] = $user_info['username'];
             $_SESSION['role'] = $user_info['role'];
-
+            post_log($db,"{$_SESSION['username']} just logged in",$_SESSION['username']); //n7uawlo nsajlo l activity dyal l users
             switch($_SESSION['role']){
                 case 'Admin':
                     header("Location: admin_dash.php");
@@ -56,7 +57,7 @@
 	<link rel="stylesheet" href="style.css">
 	<title>Login</title>
 </head>
-<body>
+<body class="layout-auth">
 	<div class="login-container">
         <h1>LOGIN</h1>
 

@@ -6,6 +6,6 @@
     <title>Dev</title>
 </head>
 <body>
-    Dev Dashboard
+    <a href="logout.php">Logout</a>
 </body>
 </html>
