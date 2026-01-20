@@ -8,7 +8,14 @@
     //  post_log($db, "helko l3ya baghi conji", "slak_ajmi");
 ?>
 
-<h1 class="header-title">Overview</h1>
+<div class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px;">
+    <h1 class="header-title" style="margin: 0;">Overview</h1>
+    
+    <a href="?page=home" class="btn" 
+        style="background-color: #e0e0e0; color: #333; width: 42px; height: 42px; padding: 0; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; text-decoration: none; border: 1px solid #ccc; border-radius: 4px;">
+        &#x21bb;
+    </a>
+</div>
 <div class="stats-grid">
     <div class="card">
         <h3>Total Developers</h3>

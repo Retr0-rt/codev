@@ -152,6 +152,34 @@ function update_project($id, $name, $description, $pm_id) {
     $stmt->execute();
 }
 
+    //---------partya dyal PM dashboard----------
+    function get_pm_projects($pm_id) {
+        $pdo = get_db_connection();
+        $stmt = $pdo->prepare("SELECT * FROM projects WHERE pm_id = :pm_id");
+        $stmt->bindValue(':pm_id', $pm_id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    function get_devs_by_project($project_id){
+        $pdo = get_db_connection();
+        $stmt = $pdo->prepare("SELECT u.* FROM users u
+        JOIN project_developers pd ON u.user_id = pd.dev_id
+        WHERE pd.project_id = :project_id");
+        $stmt->bindValue(':project_id', $project_id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    
+    }
+    function get_pm_tasks($pm_id){
+        $pdo = get_db_connection();
+        $stmt = $pdo->prepare("SELECT t.*, p.name as project_name FROM tasks t
+        JOIN projects p ON t.project_id = p.project_id
+        WHERE p.pm_id = :pm_id");
+        $stmt->bindValue(':pm_id', $pm_id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     function format_time_ago($datetime) {
         $now = new DateTime();
         $ago = new DateTime("@$datetime");

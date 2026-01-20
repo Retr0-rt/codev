@@ -34,13 +34,8 @@
     <h1 style="margin: 0; text-align: left;">PROJECTS</h1>
     
     <div style="display: flex; gap: 10px;">
-        <a href="?page=projects" class="btn" 
-           style="background-color: #e0e0e0; color: #333; width: 42px; padding: 0; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; text-decoration: none; border: 1px solid #ccc;">
-            &#x21bb;
-        </a>
-
         <a href="?page=projects&action=add_project" class="btn" style="width: auto; padding: 10px 20px; margin: 0;">
-            + ADD NEW PROJECT
+            + ADD NEW PROJECT   
         </a>
     </div>
 </div>

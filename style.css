@@ -1,10 +1,8 @@
-/* =========================================
-   1. GLOBAL VARIABLES & RESET
-   ========================================= */
+/*global variables*/
 :root {
-  --primary: #1A1A1A;    /* Black-ish */
-  --secondary: #FFFFFF;  /* White */
-  --accent: #000080;     /* Navy Blue */
+  --primary: #1A1A1A;
+  --secondary: #FFFFFF;  
+  --accent: #000080;     
   --complementary: #D4BB47;
   --shadow: 8px 8px 0px var(--primary);
   --border-radius: 12px;
@@ -24,10 +22,7 @@ body {
   /* Removed flex centering here to allow Dashboard scrolling */
 }
 
-/* =========================================
-   2. UTILITIES & AUTH LAYOUT
-   ========================================= */
-/* IMPORTANT: Add class="layout-auth" to your Login/Signup <body> tag */
+/* dakchi dyal authentification*/
 .layout-auth {
   display: flex;
   justify-content: center;
@@ -42,9 +37,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* =========================================
-   3. SHARED COMPONENTS (Inputs, Buttons)
-   ========================================= */
+/* SHARED */
 h1 {
   color: var(--primary);
   margin-bottom: 30px;
@@ -99,9 +92,7 @@ button:hover, .btn:hover {
   transform: translate(-2px, -2px);
 }
 
-/* =========================================
-   4. AUTH PAGE SPECIFICS (Login Box)
-   ========================================= */
+/* chwya 3awtani dyal login box */
 .login-container {
   width: 100%;
   max-width: 400px;
@@ -144,9 +135,7 @@ button:hover, .btn:hover {
 }
 .footer a { color: var(--primary); font-weight: bold; }
 
-/* =========================================
-   5. DASHBOARD LAYOUT
-   ========================================= */
+/* DASHBOARD LAYOUT */
 .dashboard-container {
   display: flex;
   min-height: 100vh;
@@ -160,7 +149,7 @@ button:hover, .btn:hover {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  position: fixed; /* Sticky sidebar */
+  position: fixed; 
   height: 100vh;
   z-index: 100;
 }
@@ -199,7 +188,7 @@ button:hover, .btn:hover {
 
 /* Main Content Area */
 .main-content {
-  margin-left: 260px; /* Same as sidebar width */
+  margin-left: 260px; 
   padding: 40px;
   width: 100%;
 }
