@@ -50,3 +50,9 @@ Clone the repository to your local machine:
 git clone https://github.com/Retr0-rt/codev.git codev
 cd codev
 .\LAUNCH_WEBSITE.bat
+```
+---
+## Login credentials:
+* Username: admin
+* Password: admin
+* (every user you find in the users table has the username as password too)
