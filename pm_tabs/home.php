@@ -3,16 +3,14 @@
 
     $pm_id = $_SESSION['user_id'];
     
-    // --- 1. HANDLE POST REQUESTS (Forms) ---
-    
-    // A. Add Developer
+    // Add Developer
     if(isset($_POST['assign_dev_submit'])){
         assign_user_to_project($_POST['user_id'], $_POST['project_id']); 
         header("Location: ?page=home&view_team=" . $_POST['project_id']);
         exit();
     }
 
-    // B. Assign Task
+    //  Assign Task
     if(isset($_POST['submit_task'])){
         create_task($_POST['task_name'], $_POST['description'], $_POST['project_id'], $_POST['user_id'], $_POST['deadline']);
         header("Location: ?page=home&view_team=" . $_POST['project_id']);
@@ -67,7 +65,7 @@
 
     <div class="pm-top-section">
         
-        <div class="pm-card">
+        <div class="dev-card">
             <h3>My Projects</h3>
             <div class="scrollable-table">
                 <table>
@@ -110,7 +108,7 @@
             </div>
         </div>
 
-        <div class="pm-card">
+        <div class="dev-card">
             <h3>Team: <span style="color: var(--pm-color);"><?= htmlspecialchars($selected_project_name) ?></span></h3>
             <div class="scrollable-table">
                 <table>
@@ -161,7 +159,7 @@
     </div>
 
     <div class="pm-bottom-section">
-        <div class="pm-card">
+        <div class="dev-card">
             <h2>Current Tasks & Deadlines</h2>
             <div class="scrollable-table">
                 <table>

@@ -1,3 +1,8 @@
+-- READ THIS FIRST!
+-- This SQLite schema 9dima a already made many modification its just to get a conception of what going here
+-- you can install slqite visualiser on VScode and click on the codev.db database and it will visualise the tables
+-- ou kay3tik 7ta script final li t9der tcreer bih aya table tma
+
 
 PRAGMA foreign_keys = ON;
 
@@ -21,7 +26,7 @@ CREATE TABLE IF NOT EXISTS Projects (
     FOREIGN KEY (pm_id) REFERENCES Users(user_id) ON DELETE RESTRICT
 );
 
--- Junction table for Developers <-> Projects)
+-- Developers <-> Projects
 CREATE TABLE IF NOT EXISTS Project_Assignments (
     assignment_id INTEGER PRIMARY KEY AUTOINCREMENT,
     project_id INTEGER NOT NULL,
@@ -45,6 +50,7 @@ CREATE TABLE IF NOT EXISTS Tasks (
     FOREIGN KEY (created_by) REFERENCES Users(user_id)
 );
 
+--makhdemtehach f lkher i didnt achieve the features concerning it but it's here for further development
 -- Bugs Table
 CREATE TABLE IF NOT EXISTS Bugs (
     bug_id INTEGER PRIMARY KEY AUTOINCREMENT,

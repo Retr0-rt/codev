@@ -1,9 +1,17 @@
-/*global variables*/
+/* READ THIS FIRST!
+
+components of the website are mainly from these websites 
+https://codepen.io/rustcode/pen/dPYoeMe
+https://neo-brutalism-ui-library.vercel.app/components/card
+
+of course a lot of other components were designed and coded by Ai and some by me :)
+*/
 :root {
   --primary: #1A1A1A;
   --secondary: #FFFFFF;  
   --accent: #000080;     
   --complementary: #D4BB47;
+  --dev-color: #3b3b3b;
   --shadow: 8px 8px 0px var(--primary);
   --border-radius: 12px;
 }
@@ -19,7 +27,7 @@ body {
   background-color: var(--secondary);
   color: var(--primary);
   min-height: 100vh;
-  /* Removed flex centering here to allow Dashboard scrolling */
+  
 }
 
 /* dakchi dyal authentification*/
@@ -266,6 +274,139 @@ td {
   font-weight: bold;
   border: 1px solid var(--primary);
 }
+/* DEVELOPER DASHBOARD LAYOUT */
+
+.dev-card {
+    background-color: #ffffff;
+    border: 3px solid #000000;       
+    box-shadow: 10px 10px 0px #000000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%; /* Ensures it fills the grid cell */
+}
+
+
+.dev-card h3 {
+    background-color: #ffffff;
+    padding: 15px 20px;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    border-bottom: 3px solid #000000; /* Matching thick divider line */
+    letter-spacing: 1px;
+}
+
+/* Adjust the grid container to allow space for the heavy shadows */
+.dev-grid-container {
+    display: grid;
+    grid-template-columns: 550px 1fr; /* Widen left col for email */
+    grid-template-rows: calc(100vh - 100px); /* Adjust for padding */
+    gap: 30px; /* Increased gap so shadows don't overlap */
+    padding: 10px; /* Padding to prevent shadow clipping */
+    overflow: visible;
+}
+/* LEFT COLUMN:*/
+.dev-left-column {
+    display: grid;
+    grid-template-rows: 1fr 1fr; /* Split 50/50 vertically */
+    gap: 20px;
+    overflow: visible;
+}
+
+/* RIGHT COLUMN: */
+.dev-right-column {
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Card Helper to ensure tables scroll internally */
+.fit-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 4px 8px;
+    border: 1px solid #000;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
+}
+
+/* --- MODAL STYLES (Brutalist Theme) --- */
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6); /* Black with opacity */
+    backdrop-filter: grayscale(90%); /* Optional: Greyscale background effect */
+}
+
+/* The Modal Content Box */
+.modal-content-brutal {
+    background-color: #fff;
+    margin: 10% auto; /* 10% from top, centered */
+    padding: 0;
+    border: 4px solid #000; /* Thicker border */
+    box-shadow: 12px 12px 0px #000; /* Hard shadow */
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+/* Close Button (X) */
+.close-modal {
+    color: #000;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 20px;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+.close-modal:hover { color: red; }
+
+/* The Action Button inside the modal */
+.brutal-btn-action {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff;
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0px #000;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+.brutal-btn-action:hover {
+    box-shadow: 6px 6px 0px #000;
+    transform: translate(-2px, -2px);
+}
+.brutal-btn-action:active {
+    box-shadow: 2px 2px 0px #000;
+    transform: translate(2px, 2px);
+}
+
+.status-pending { background-color: #3498db; }      /* Blue for To Do */
+.status-in-progress { background-color: #f39c12; }  /* Orange for In Progress */
+.status-completed { background-color: #27ae60; color: white; }    /* Green for Done */
 .badge-admin { background-color: var(--accent); color: white; }
 .badge-pm { background-color: var(--complementary); }
 .badge-dev { background-color: #e0e0e0; color: #000; }

@@ -257,6 +257,79 @@ function update_project($id, $name, $description, $pm_id) {
         $task_name = get_task_by_id($task_id)['title'];
         $action = "Deleted task '$task_name' with ID '$task_id'";
     }
+
+    function update_task_status($task_id, $dev_id, $new_status){
+        $pdo = get_db_connection();
+        // Ensure the task belongs to the developer
+        $stmt = $pdo->prepare("SELECT * FROM tasks WHERE task_id = :task_id AND assigned_to = :dev_id");
+        $stmt->bindValue(':task_id', $task_id);
+        $stmt->bindValue(':dev_id', $dev_id);
+        $stmt->execute();
+        $task = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($task){
+            $stmt = $pdo->prepare("UPDATE tasks SET status = :status WHERE task_id = :task_id");
+            $stmt->bindValue(':status', $new_status);
+            $stmt->bindValue(':task_id', $task_id);
+            $stmt->execute();
+
+            $action = "Updated status of task '{$task['title']}' (ID: $task_id) to '$new_status'";
+            post_log($pdo, $action, get_user_by_id($dev_id)['username']);
+        }
+    }
+    function get_tasks_by_dev($dev_id){
+        $pdo = get_db_connection();
+        $stmt = $pdo->prepare("SELECT t.*, p.name as project_name FROM tasks t
+        JOIN projects p ON t.project_id = p.project_id
+        WHERE t.assigned_to = :dev_id");
+        $stmt->bindValue(':dev_id', $dev_id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    function get_dev_projects($dev_id){
+        $pdo = get_db_connection();
+        $stmt = $pdo->prepare("SELECT p.* FROM projects p
+        JOIN Project_Assignments pa ON p.project_id = pa.project_id
+        WHERE pa.user_id = :dev_id");
+        $stmt->bindValue(':dev_id', $dev_id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    function get_dev_tasks_filtered($dev_id, $status = 'All') {
+        $pdo = get_db_connection();
+        $sql = "SELECT t.*, p.name as project_name 
+                FROM tasks t 
+                JOIN projects p ON t.project_id = p.project_id
+                WHERE t.assigned_to = :user_id";
+                
+        if ($status !== 'All') {
+            $sql .= " AND t.status = :status";
+        }
+        $sql .= " ORDER BY t.created_at DESC"; 
+        $stmt = $pdo->prepare($sql);        
+        if ($status !== 'All') {
+            $stmt->bindValue(":status", $status);
+            $stmt->bindValue(":user_id", $dev_id);
+        } else {
+            $stmt->bindValue(":user_id", $dev_id);
+        }
+        
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function get_task_details($task_id){
+       $pdo = get_db_connection();
+        $sql = "SELECT t.*, p.name as project_name 
+                FROM tasks t
+                JOIN projects p ON t.project_id = p.project_id
+                WHERE t.task_id = :task_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(":task_id", $task_id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     function format_time_ago($datetime) {
         $now = new DateTime();
         $ago = new DateTime("@$datetime");
