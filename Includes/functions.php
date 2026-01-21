@@ -163,7 +163,7 @@ function update_project($id, $name, $description, $pm_id) {
     function get_devs_by_project($project_id){
         $pdo = get_db_connection();
         $stmt = $pdo->prepare("SELECT u.* FROM users u
-        JOIN project_developers pd ON u.user_id = pd.dev_id
+        JOIN Project_Assignments pd ON u.user_id = pd.user_id
         WHERE pd.project_id = :project_id");
         $stmt->bindValue(':project_id', $project_id);
         $stmt->execute();
@@ -180,6 +180,83 @@ function update_project($id, $name, $description, $pm_id) {
         return $stmt->fetchAll();
     }
 
+    function get_available_devs_for_project($project_id) {
+        $pdo = get_db_connection();
+        $stmt = $pdo->prepare("SELECT * FROM users 
+                               WHERE role = 'Developer' 
+                               AND user_id NOT IN (
+                                   SELECT user_id FROM Project_Assignments WHERE project_id = :project_id
+                               )");
+        $stmt->bindValue(':project_id', $project_id);
+        $stmt->execute();
+        return $stmt->fetchAll();    
+    }
+
+    function assign_user_to_project($user_id, $project_id) {
+        $pdo = get_db_connection();
+        $stmt = $pdo->prepare("INSERT INTO Project_Assignments (project_id, user_id) VALUES (:project_id, :user_id)");
+        $stmt->bindValue(':project_id', $project_id);
+        $stmt->bindValue(':user_id', $user_id);
+        $stmt->execute();
+
+        $user_name = get_user_by_id($user_id)['username'];
+        $project_name = get_project_by_id($project_id)['name'];
+        $action = "Assigned developer '$user_name' to project '$project_name'";
+        post_log($pdo, $action, $project_name);
+    }
+
+    function remove_user_from_project($user_id, $project_id){
+        $pdo = get_db_connection();
+        $stmt = $pdo->prepare("DELETE FROM Project_Assignments WHERE project_id = :project_id AND user_id = :user_id");
+        $stmt->bindValue(':project_id', $project_id);
+        $stmt->bindValue(':user_id', $user_id);
+        $stmt->execute();
+
+        $user_name = get_user_by_id($user_id)['username'];
+        $project_name = get_project_by_id($project_id)['name'];
+        $action = "Removed developer '$user_name' from project '$project_name'";
+        post_log($pdo, $action, $project_name);
+    }
+
+    function get_dev_by_id($user_id){
+        $pdo = get_db_connection();
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE user_id = :user_id AND role = 'Developer'");
+        $stmt->bindValue(':user_id', $user_id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function create_task($task_name, $description ,$project_id, $user_id, $deadline){
+        $pdo = get_db_connection();
+        $stmt = $pdo->prepare("INSERT INTO tasks (title, project_id, description, assigned_to, deadline) 
+        VALUES (:title, :project_id, :description, :user_id, :deadline)");
+        $stmt->bindValue(':title', $task_name);
+        $stmt->bindValue(':project_id', $project_id);
+        $stmt->bindValue(':description', $description);
+        $stmt->bindValue(':user_id', $user_id);
+        $stmt->bindValue(':deadline', strtotime($deadline));
+        $stmt->execute();
+
+        $user_name = get_user_by_id($user_id)['username'];
+        $project_name = get_project_by_id($project_id)['name'];
+        $action = "Created task '$task_name' for developer '$user_name' in project '$project_name'";
+        post_log($pdo, $action, $project_name);
+    }
+    function get_task_by_id($task_id){
+        $pdo = get_db_connection();
+        $stmt = $pdo->prepare("SELECT * FROM tasks WHERE task_id = :task_id");
+        $stmt->bindValue(':task_id', $task_id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    function delete_task($task_id){
+        $pdo = get_db_connection();
+        $stmt = $pdo->prepare("DELETE FROM tasks WHERE task_id = :task_id");
+        $stmt->bindValue(':task_id', $task_id);
+        $stmt->execute();
+        $task_name = get_task_by_id($task_id)['title'];
+        $action = "Deleted task '$task_name' with ID '$task_id'";
+    }
     function format_time_ago($datetime) {
         $now = new DateTime();
         $ago = new DateTime("@$datetime");

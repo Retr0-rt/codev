@@ -16,16 +16,30 @@
     <link rel="stylesheet" href="style.css">
     <style>
         :root {
+            --primary: #1A1A1A;
+            --secondary: #FFFFFF; 
             --pm-color: #D4BB47; 
         }
         
         .sidebar .brand { color: var(--pm-color); }
         
-        .nav-link.active {
-            border-left: 4px solid var(--pm-color);
-            background: rgba(212, 187, 71, 0.1); 
-            color: var(--pm-color);
-        }
+        .nav-link {
+            display: block;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            }
+
+            .nav-link:hover, .nav-link.active {
+            background-color: var(--pm-color);
+            color: var(--secondary);
+            border: 2px solid var(--primary);
+            box-shadow: 4px 4px 0px var(--primary);
+            }
 
         /* Layout Structure */
         .pm-container {
@@ -53,8 +67,8 @@
         /* STYLING FIX: Black Borders & Sharp Edges */
         .pm-card {
             background: white;
-            border: 2px solid #000; /* The Admin Black Border */
-            box-shadow: 4px 4px 0px #000; /* Optional: Adds a hard shadow for depth */
+            border: 2px solid #000; 
+            box-shadow: 4px 4px 0px #000; 
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -64,7 +78,7 @@
         .pm-card h3, .pm-card h2 {
             padding: 15px;
             margin: 0;
-            border-bottom: 2px solid #000; /* Header separator */
+            border-bottom: 2px solid #000; 
             background: #fff;
             flex-shrink: 0;
             font-weight: 800;
@@ -109,7 +123,7 @@
             <div class="brand">CoDev PM</div>
             <nav>
                 <a href="?page=home" class="nav-link <?= $page === 'home' ? 'active' : '' ?>">My Projects</a>
-                <a href="logout.php" class="nav-link logout">Log Out</a>
+                <a href="logout.php" class="nav-link">Log Out</a>
             </nav>
         </aside>
 

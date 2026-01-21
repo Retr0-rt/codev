@@ -16,10 +16,12 @@
         <aside class="sidebar">
             <div class="brand">CoDev Admin</div>
             <nav>
-                <a href="?page=home" class="nav-link active">Dashboard</a>
-                <a href="?page=users" class="nav-link">User Management</a>
-                <a href="?page=projects" class="nav-link">Projects</a>
-                <a href="logout.php" class="nav-link logout">Log Out</a>
+                <nav>
+                    <a href="?page=home" class="nav-link <?= $page == 'home' ? 'active' : '' ?>">Dashboard</a>
+                    <a href="?page=users" class="nav-link <?= $page == 'users' ? 'active' : '' ?>">User Management</a>
+                    <a href="?page=projects" class="nav-link <?= $page == 'projects' ? 'active' : '' ?>">Projects</a>
+                    <a href="logout.php" class="nav-link logout">Log Out</a>
+                </nav>
             </nav>
         </aside>
 
