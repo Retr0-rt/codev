@@ -1,8 +1,8 @@
-# CoCode - Coworking & Project Management Platform
+# CoDev - Coworking & Project Management Platform
 
-**CoCode** is a lightweight, self-hosted project management and coworking platform designed to streamline collaboration between administrators, project managers, and developers. It features a role-based access control (RBAC) system, allowing distinct workflows for assigning tasks, managing users, and tracking project progress.
+**CoDev** is a lightweight, self-hosted project management and coworking platform designed to streamline collaboration between administrators, project managers, and developers. It features a role-based access control (RBAC) system, allowing distinct workflows for assigning tasks, managing users, and tracking project progress.
 
-Built with simplicity in mind, CoCode runs entirely on PHP's built-in server and SQLite, removing the need for complex database setups or heavy web server software (like Apache/Nginx) for local development.
+Built with simplicity in mind, CoDev runs entirely on PHP's built-in server and SQLite, removing the need for complex database setups or heavy web server software (like Apache/Nginx) for local development.
 
 ## Technologies Used
 * **Backend:** PHP 8+ (Native, no frameworks)
@@ -21,7 +21,7 @@ Built with simplicity in mind, CoCode runs entirely on PHP's built-in server and
 
 ## Prerequisites & Setup
 
-To run CoCode, you do **not** need XAMPP or WAMP. You only need **PHP** installed on your system.
+To run CoDev, you do **not** need XAMPP or WAMP. You only need **PHP** installed on your system.
 
 ### 1. Install PHP
 If you don't have PHP installed, download it here:
@@ -30,7 +30,7 @@ If you don't have PHP installed, download it here:
 * **macOS:** `brew install php`
 
 ### 2. Enable SQLite (Crucial Step!)
-CoCode uses **SQLite** (`codev.db`), which comes bundled with PHP but is often disabled by default on Windows.
+CoDev uses **SQLite** (`codev.db`), which comes bundled with PHP but is often disabled by default on Windows.
 
 1.  Locate your `php.ini` file (run `php --ini` in your terminal to find the path).
 2.  Open the file in a text editor (Notepad, VS Code, etc.).
